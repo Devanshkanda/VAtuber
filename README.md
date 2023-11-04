@@ -1,6 +1,6 @@
-# youtube-video-converter
+# Youtube-Video-Converter
 
-## This is a python script that takes a youtube video URL and converts it to An Audio File
+## This is a python script that takes a youtube video URL and converts it to An Audio File or Video File and Save it to your current working directory
 
 To get Started you need to clone this project repository into your local machine
 

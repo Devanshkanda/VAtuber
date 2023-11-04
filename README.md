@@ -23,3 +23,9 @@ Make sure you have python3 installed
     ```
     python3 get_audio.py -h
     ```
+
+
+## A Demo Screen Record to show the usage
+
+
+[Screencast from 2023-11-04 18-43-43.webm](https://github.com/Devanshkanda/youtube-video-converter/assets/101200047/b99a7de3-e7d2-4c6a-8b50-289bbd3852c4)

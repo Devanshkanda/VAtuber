@@ -18,8 +18,8 @@ Make sure you have python3 installed
     pip install pytube
     ```
     
-*   Run the script:
+*   Run the script by typing -h tag to Know about usage:
 
     ```
-    python3 get_audio.py
+    python3 get_audio.py -h
     ```

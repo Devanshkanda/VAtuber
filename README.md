@@ -21,7 +21,7 @@ Make sure you have python3 installed
 *   Run the script by typing -h tag to Know about usage:
 
     ```
-    python3 get_audio.py -h
+    python3 get_audio_video.py -h
     ```
 
 

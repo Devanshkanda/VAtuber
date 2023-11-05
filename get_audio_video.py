@@ -1,6 +1,6 @@
 from pytube import YouTube
 import argparse
-
+from pathlib import Path
 
 def download_file(url: str, type: str, filename: str, res: str):
     try:
@@ -33,7 +33,7 @@ def download_file(url: str, type: str, filename: str, res: str):
         else:
             stream.download(filename=f"{filename}.{extension}")
 
-        print(f"{type} downloaded successfully")
+        print(f"{type} downloaded successfully at Path: {Path.cwd()}")
     except Exception as e:
         print("An error occured : " + str(e))
 

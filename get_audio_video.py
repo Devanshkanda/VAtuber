@@ -2,40 +2,36 @@ from pytube import YouTube
 import argparse
 
 
-def download_audio(url: str, type: str, filename: str):
+def download_file(url: str, type: str, filename: str, res: str):
     try:
         yt = YouTube(url=url)
-        audio_stream = yt.streams.filter(only_audio=True, mime_type="audio/mp4", type="audio").first()
-        # print(audio_stream)
-        if(audio_stream is None):
-            return "No file format is available"
-        
-        print("Downloading the file. please wait for few Seconds")
+        stream = None
+        extension = None
 
-        if not filename:
-            audio_stream.download()
+        if type == "audio":
+            stream = yt.streams.filter(only_audio=True, mime_type="audio/mp4", type="audio").first()
+            extension = "mp3"
+
+            if(stream is None):
+                return "No file format Stream is available"
+            
+        elif type == "video":
+            stream = yt.streams.filter(only_video=True, mime_type="video/mp4", type="video", res=res).first()
+            extension = "mp4"
+
+            if(stream is None):
+                return "No file format Stream is available"
+            
         else:
-            audio_stream.download(filename=f"{filename}.mp3")
+            print("Unknown file type entered ..")
+            quit()
 
-        print(f"{type} downloaded successfully")
-    except Exception as e:
-        print("An error occured : " + str(e))
-
-
-def download_video(url: str, type: str, filename: str, res: str):
-    try:
-        yt = YouTube(url=url)
-        video_stream = yt.streams.filter(only_video=True, mime_type="video/mp4", type="video", res=res).first()
-        # print(video_stream)
-        if(video_stream is None):
-            return "No file format is available"
-        
         print("Downloading the file. please wait for few Seconds ...")
 
         if not filename:
-            video_stream.download()
+            stream.download()
         else:
-            video_stream.download(filename=f"{filename}.mp4")
+            stream.download(filename=f"{filename}.{extension}")
 
         print(f"{type} downloaded successfully")
     except Exception as e:
@@ -64,9 +60,7 @@ if __name__ == "__main__":
     if(url is None or not url):
         print("Enter the url .")
         quit()
-    elif(filetype == "audio" and url):
-        download_audio(url, filetype, name)
-    elif(filetype == "video" and url):
-        download_video(url, filetype, name, res)
+    elif(filetype == "audio" and url) or (filetype == "video" and url):
+        download_file(url, filetype, name, res)
     else:
         print("Please enter the correct input format")

@@ -35,7 +35,6 @@ class get_StreamFile:
                 
             else:
                 raise customException("Unknown file type entered ..")
-                # quit()
 
             print("Downloading the file. please wait for few Seconds ...")
 

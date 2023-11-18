@@ -1,4 +1,4 @@
-# A Youtube-Video-Converter
+# VAtuber A Youtube-Video-Converter
 
 ## This is a python script that takes a youtube video URL and converts it to An Audio File or Video File and Save it to your current working directory
 
@@ -9,7 +9,7 @@ Make sure you have python3 installed
 *   Type the command in your Terminal or command prompt
 
     ```c++
-    git clone https://github.com/Devanshkanda/youtube-video-converter.git
+    git clone https://github.com/Devanshkanda/VAtuber.git
     ```
 
 *   Install the library:
@@ -18,7 +18,7 @@ Make sure you have python3 installed
     pip install pytube
     ```
     
-*   Run the script by typing -h tag to Know about usage:
+*   Run the script by typing -h (help) tag to Know about usage:
 
     ```
     python3 get_audio_video.py -h

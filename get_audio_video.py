@@ -4,7 +4,7 @@ from pathlib import Path
 
 class get_StreamFile:
 
-    def download_file(self, url: str, type: str, filename: str, res: str):
+    def download_file(self, url: str, type: str, filename: str, res: str) -> None:
         try:
             yt = YouTube(url=url)
             stream = None
@@ -53,7 +53,6 @@ class get_StreamFile:
 
 
 if __name__ == "__main__":
-    # args = create_arge_parser()
     obj = get_StreamFile()
     args = obj.create_arge_parser()
     url = args.url

@@ -1,12 +1,14 @@
 from pytube import YouTube
 import argparse
 from pathlib import Path
+from pytube.cli import on_progress
 
 
 class customException(Exception):
     def __init__(self, message):
         self.message = message
 
+    @property
     def __str__(self) -> str:
         return self.message
 
@@ -15,9 +17,9 @@ class get_StreamFile:
 
     def download_file(self, url: str, type: str, filename: str, res: str) -> None:
         try:
-            yt = YouTube(url=url)
+            yt = YouTube(url=url, on_progress_callback=on_progress)
             stream = None
-            extension: str;
+            extension: str
 
             if type == "audio":
                 stream = yt.streams.filter(only_audio=True, mime_type="audio/mp4", type="audio").first()
@@ -35,8 +37,11 @@ class get_StreamFile:
                 
             else:
                 raise customException("Unknown file type entered ..")
+                # quit()
 
             print("Downloading the file. please wait for few Seconds ...")
+            print(f"Title: {stream.title}")
+            print(f"filesize: {stream.filesize/(1024*1024)} MB")
 
             if not filename:
                 stream.download()

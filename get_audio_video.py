@@ -1,5 +1,5 @@
 from pytube import YouTube
-import argparse
+import argparse, multiprocessing
 from pathlib import Path
 from pytube.cli import on_progress
 
@@ -48,7 +48,7 @@ class get_StreamFile:
             else:
                 stream.download(filename=f"{filename}.{extension}")
 
-            print(f"{type} downloaded successfully at Path: {Path.cwd()}")
+            print(f"{type} downloaded successfully at Path: {Path.cwd()}/{stream.title}")
 
         except customException as e:
             print(f"An error occured: {str(e)}")
@@ -60,8 +60,8 @@ class get_StreamFile:
         parser = argparse.ArgumentParser(description="""Welcome Here to convert your
                                         favourate video to audio...""")
         
-        parser.add_argument("--url", type=str, help="Enter the Url of the youtube video here", default=None)
-        parser.add_argument("--type", type=str, help="Enter the Type format of the file (audio/video)")
+        parser.add_argument("--url", nargs='*', help="Enter the Url(s) of the youtube video here", default=None)
+        parser.add_argument("--type", type=str, help="Enter the Type format of the file (audio/video)", default=None)
         parser.add_argument("--name", type=str, help="Enter the name of file without .ext Example : 'audio' ", default="")
         parser.add_argument("--res", type=str, help="Enter the resolution type when downloading video Example: '1080p'. Default set to 480p", default="480p")
 
@@ -72,7 +72,7 @@ if __name__ == "__main__":
 
     obj = get_StreamFile()
     args = obj.create_arge_parser()
-    url: str = args.url
+    url: list = args.url
     filetype: str = args.type
     name: str = args.name
     res: str = args.res
@@ -81,6 +81,8 @@ if __name__ == "__main__":
         print("Enter the url .")
         quit()
     elif(filetype == "audio" and url) or (filetype == "video" and url):
-        obj.download_file(url=url, type=filetype, filename=name, res=res)
+        # obj.download_file(url=url, type=filetype, filename=name, res=res)
+        for i in url:
+            multiprocessing.Process(target=obj.download_file, args=(i, filetype, name, res,)).start()
     else:
         print("Please enter the correct input format")

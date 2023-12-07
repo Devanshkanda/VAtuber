@@ -1,5 +1,5 @@
 from pytube import YouTube
-import argparse, multiprocessing
+import argparse, concurrent.futures, threading
 from pathlib import Path
 from pytube.cli import on_progress
 
@@ -81,8 +81,7 @@ if __name__ == "__main__":
         print("Enter the url .")
         quit()
     elif(filetype == "audio" and url) or (filetype == "video" and url):
-        # obj.download_file(url=url, type=filetype, filename=name, res=res)
         for i in url:
-            multiprocessing.Process(target=obj.download_file, args=(i, filetype, name, res,)).start()
+            threading.Thread(target=obj.download_file, args=(i, filetype, name, res,)).start()
     else:
         print("Please enter the correct input format")

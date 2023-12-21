@@ -60,7 +60,7 @@ class get_StreamFile:
         parser = argparse.ArgumentParser(description="""Welcome Here to convert your
                                         favourate video to audio...""")
         
-        parser.add_argument("--url", nargs='*', help="Enter the Url(s) of the youtube video here", default=None)
+        parser.add_argument("--url", nargs='*', help="""Enter the Url(s) of the youtube video here example : <url1> <url2> <url3> ...""", default=None)
         parser.add_argument("--type", type=str, help="Enter the Type format of the file (audio/video)", default=None)
         parser.add_argument("--name", type=str, help="Enter the name of file without .ext Example : 'audio' ", default="")
         parser.add_argument("--res", type=str, help="Enter the resolution type when downloading video Example: '1080p'. Default set to 480p", default="480p")

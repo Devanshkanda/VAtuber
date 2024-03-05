@@ -1,5 +1,5 @@
 from pytube import YouTube
-import argparse, concurrent.futures, threading
+import argparse, threading, asyncio, time
 from pathlib import Path
 from pytube.cli import on_progress
 
@@ -7,6 +7,7 @@ from pytube.cli import on_progress
 class customException(Exception):
     def __init__(self, message):
         self.message = message
+        super().__init__(message)
 
     @property
     def __str__(self) -> str:
@@ -55,7 +56,7 @@ class get_StreamFile:
             else:
                 stream.download(filename=f"{self.filename}.{extension}")
 
-            print(f"{self.type} downloaded successfully at Path: {Path.cwd()}/{stream.title}")
+            print(f"{self.type} downloaded successfully at Path: {Path.cwd()}/{stream.title}\n")
 
         except customException as e:
             print(f"An error occured: {str(e)}")
@@ -76,13 +77,12 @@ class get_StreamFile:
         return parser.parse_args()
     
     
-    def start_download(self) -> None:
-        for i in self.urls:
-            threading.Thread(target=self.download_file, args=(i,)).start()
+    async def start_download(self) -> None:
+        for url in self.urls:
+            threading.Thread(target=self.download_file, args=(url,)).start()
 
 
-if __name__ == "__main__":
-
+async def main() -> None:
     args = get_StreamFile.create_arge_parser()
     url: list = args.url
     filetype: str = args.type
@@ -94,6 +94,10 @@ if __name__ == "__main__":
         quit()
     elif(filetype == "audio" and url) or (filetype == "video" and url):
         get_streamFile_obj = get_StreamFile(url=url, type=filetype, filename=name, res=res)
-        get_streamFile_obj.start_download()
+        await get_streamFile_obj.start_download()
     else:
         print("Please enter the correct input format")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

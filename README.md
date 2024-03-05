@@ -12,10 +12,10 @@ Make sure you have python3 installed
     git clone https://github.com/Devanshkanda/VAtuber.git
     ```
 
-*   Install the library:
+*   Install the Module:
 
     ```
-    pip install pytube
+    pip3 install pytube
     ```
     
 *   Run the script by typing -h (help) tag to Know about usage:

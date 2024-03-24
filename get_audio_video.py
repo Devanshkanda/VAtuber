@@ -1,20 +1,21 @@
 from pytube import YouTube
-import argparse, threading, asyncio, time
+import argparse, threading, asyncio
 from pathlib import Path
 from pytube.cli import on_progress
-
+from dataclasses import dataclass
 
 class customException(Exception):
     def __init__(self, message):
         self.message = message
-        super().__init__(message)
-
-    @property
-    def __str__(self) -> str:
-        return self.message
+        return super().__init__(message)
 
 
+@dataclass(slots=True, init=False)
 class get_StreamFile:
+    urls: list
+    type: str
+    filename: str
+    res: str
 
     def __init__(self, url: list, type: str, filename: str, res: str) -> None:
         self.urls: list = url

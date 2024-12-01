@@ -15,7 +15,7 @@ Make sure you have python3 installed
 *   Install the Module:
 
     ```
-    pip3 install pytube
+    pip3 install pytubefix
     ```
     
 *   Run the script by typing -h (help) tag to Know about usage:

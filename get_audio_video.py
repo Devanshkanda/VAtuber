@@ -1,7 +1,7 @@
-from pytube import YouTube
+from pytubefix import YouTube
 import argparse, threading, asyncio
 from pathlib import Path
-from pytube.cli import on_progress
+from pytubefix.cli import on_progress
 from dataclasses import dataclass
 
 class customException(Exception):
@@ -38,7 +38,7 @@ class get_StreamFile:
                     raise customException("No file format Stream is available")
                 
             elif self.type == "video":
-                stream = yt.streams.filter(only_video=True, mime_type="video/mp4", type="video", res=self.res).first()
+                stream = yt.streams.filter(mime_type="video/mp4", type="video", res=self.res).first()
                 extension = "mp4"
 
                 if(stream is None):
@@ -66,7 +66,7 @@ class get_StreamFile:
 
 
     @staticmethod
-    def create_arge_parser():
+    async def create_arge_parser():
         parser = argparse.ArgumentParser(description="""Welcome Here to convert your
                                         favourate video to audio...""")
         
@@ -81,10 +81,11 @@ class get_StreamFile:
     async def start_download(self) -> None:
         for url in self.urls:
             threading.Thread(target=self.download_file, args=(url,)).start()
+        print(self.urls)
 
 
 async def main() -> None:
-    args = get_StreamFile.create_arge_parser()
+    args = await get_StreamFile.create_arge_parser()
     url: list = args.url
     filetype: str = args.type
     name: str = args.name
